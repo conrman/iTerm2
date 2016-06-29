@@ -338,8 +338,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
             return NSBorderlessWindowMask;
 
         default:
-            return (NSTitledWindowMask |
-                    NSClosableWindowMask |
+            return (NSClosableWindowMask |
                     NSMiniaturizableWindowMask |
                     NSResizableWindowMask |
                     NSTexturedBackgroundWindowMask);
@@ -662,7 +661,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
     }
     _shortcutAccessoryViewController.ordinal = number_ + 1;
 #endif
-    
+
     DLog(@"Done initializing PseudoTerminal %@", self);
 }
 
@@ -1912,7 +1911,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
         if ([aTab isTmuxTab]) {
             NSSize tabSize = [aTab tmuxSize];
             DLog(@"tab %@ size is %@", aTab, NSStringFromSize(tabSize));
-            
+
             tmuxSize.width = (int) MIN(tmuxSize.width, tabSize.width);
             tmuxSize.height = (int) MIN(tmuxSize.height, tabSize.height);
         }
@@ -2301,7 +2300,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
     }
 
     [[self retain] autorelease];
-    
+
     if ([self isHotKeyWindow]) {
         [[HotkeyWindowController sharedInstance] restorePreviouslyActiveApp];
     }
@@ -2681,12 +2680,12 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
         DLog(@"Failed to find a hotkey window");
         return nil;
     }
-    
+
     NSArray<PTYWindow *> *keyTerminalWindows = [[iTermController sharedInstance] keyTerminalWindows];
 
     BOOL nonHotkeyTerminalIsKey = [keyTerminalWindows containsObjectBesides:[hotkeyTerminal ptyWindow]];
     BOOL haveMain = [[iTermController sharedInstance] anyWindowIsMain];
-    
+
     if (haveMain && !nonHotkeyTerminalIsKey) {
         // Issue 1251: we can take this path when a "clipboard manager" window is open.
         DLog(@"Some non-terminal window is now main. Key terminal windows are %@",
@@ -4147,7 +4146,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
         if (wasDraggedFromAnotherWindow_) {
             wasDraggedFromAnotherWindow_ = NO;
             [firstTab setReportIdealSizeAsCurrent:NO];
-            
+
             // fitWindowToTabs will detect the window changed sizes and do a bogus move of it in this case.
             if (windowType_ == WINDOW_TYPE_NORMAL ||
                 windowType_ == WINDOW_TYPE_NO_TITLE_BAR) {
@@ -4333,7 +4332,7 @@ static NSString* TERMINAL_ARRANGEMENT_HIDING_TOOLBELT_SHOULD_RESIZE_WINDOW = @"H
 
     [theTab numberOfSessionsDidChange];
     [self saveTmuxWindowOrigins];
-    
+
     if (tabToRemove) {
         [self.tabView removeTabViewItem:tabToRemove.tabViewItem];
     }
